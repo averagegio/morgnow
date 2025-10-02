@@ -46,10 +46,25 @@ export default function HomesList() {
 		}
 	};
 
-	useEffect(() => {
-		load();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+    useEffect(() => {
+        const syncFromUrl = () => {
+            const sp = new URLSearchParams(window.location.search);
+            setQ(sp.get("q") || "");
+            setCity(sp.get("city") || "");
+            const min = Number(sp.get("minPrice") || 0);
+            const max = Number(sp.get("maxPrice") || 0);
+            setMinPrice(min);
+            setMaxPrice(max);
+            const p = Number(sp.get("page") || 1);
+            setPage(p);
+            setTimeout(load, 0);
+        };
+        syncFromUrl();
+        const onSearch = () => syncFromUrl();
+        window.addEventListener("homes:search", onSearch);
+        return () => window.removeEventListener("homes:search", onSearch);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const totalPages = Math.max(1, Math.ceil((data.total || (data.results?.length || 0)) / pageSize));
 
