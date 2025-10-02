@@ -1,8 +1,8 @@
 ﻿export const homes = [
-	{ id: "h1", title: "Modern loft", city: "Austin", price: 520000, beds: 2, baths: 2, lat: 30.27, lng: -97.74 },
-	{ id: "h2", title: "Cozy bungalow", city: "Seattle", price: 690000, beds: 3, baths: 2, lat: 47.61, lng: -122.33 },
-	{ id: "h3", title: "Downtown condo", city: "Miami", price: 450000, beds: 1, baths: 1, lat: 25.76, lng: -80.19 },
-	{ id: "h4", title: "Family house", city: "Denver", price: 780000, beds: 4, baths: 3, lat: 39.74, lng: -104.99 },
+	{ id: "h1", title: "Modern loft", city: "Austin", price: 520000, beds: 2, baths: 2, lat: 30.27, lng: -97.74, image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200&auto=format&fit=crop" },
+	{ id: "h2", title: "Cozy bungalow", city: "Seattle", price: 690000, beds: 3, baths: 2, lat: 47.61, lng: -122.33, image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1200&auto=format&fit=crop" },
+	{ id: "h3", title: "Downtown condo", city: "Miami", price: 450000, beds: 1, baths: 1, lat: 25.76, lng: -80.19, image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1200&auto=format&fit=crop" },
+	{ id: "h4", title: "Family house", city: "Denver", price: 780000, beds: 4, baths: 3, lat: 39.74, lng: -104.99, image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200&auto=format&fit=crop" },
 ];
 
 export function searchHomes({ q, city, minPrice, maxPrice, page = 1, pageSize = 6 }) {
