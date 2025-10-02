@@ -27,29 +27,13 @@ export default function NavBar() {
 		setMessage("Back to top");
 	};
 
-	const handleBrowse = async () => {
-		setLoading("browse");
-		try {
-			const data = await apiJson(`/api/homes?q=&city=`);
-			setMessage(`Found ${data.results.length} homes`);
-		} catch (e) {
-			setMessage(e.message);
-		} finally {
-			setLoading("");
-		}
-	};
+    const handleBrowse = () => {
+        window.location.href = "/browse";
+    };
 
-	const handleBid = async () => {
-		setLoading("bid");
-		try {
-			const { bid } = await apiJson(`/api/bid`, { method: "POST", body: JSON.stringify({ homeId: "h1", amount: 500000, user: "guest" }) });
-			setMessage(`Bid ${bid.amount.toLocaleString()} submitted`);
-		} catch (e) {
-			setMessage(e.message);
-		} finally {
-			setLoading("");
-		}
-	};
+    const handleBid = () => {
+        window.location.href = "/bids";
+    };
 
 	const handleBook = async () => {
 		setLoading("tour");
@@ -65,7 +49,7 @@ export default function NavBar() {
 
 	return (
 		<div className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50">
-			<div className="flex items-center gap-6 rounded-full border border-black/[.08] dark:border-white/[.145] bg-background/90 backdrop-blur px-6 py-3 shadow-lg">
+			<div className="flex items-center gap-6 rounded-full border border-white/20 bg-white/10 dark:bg-white/10 backdrop-blur-md px-6 py-3 shadow-lg ring-1 ring-white/10">
 				<button onClick={goHome} className="flex flex-col items-center text-sm" aria-label="Home">
 					<Icon label="home" path="M12 3l9 8h-3v10h-12v-10h-3l9-8z" />
 					<span>Home</span>

@@ -3,7 +3,6 @@ import LogoHeader from "./components/LogoHeader";
 import Hero from "./components/Hero";
 import SearchBar from "./components/SearchBar";
 import FeatureGrid from "./components/FeatureGrid";
-import HomeSlider from "./components/HomeSlider";
 import HomesList from "./components/HomesList";
 import SiteFooter from "./components/SiteFooter";
 
@@ -19,15 +18,12 @@ export default function Home() {
           <LogoHeader />
         </div>
       </div>
-      <main className="flex-1 p-8 sm:p-20 pt-[52vh] relative z-10">
-        <div className="mt-6">
-          <HomeSlider />
-        </div>
-        <div className="max-w-xl mx-auto my-6">
-          <SearchBar />
-        </div>
+      <main className="flex-1 px-0 sm:px-0 pt-[64vh] relative z-10">
         <FeatureGrid />
         <HomesList />
+        <div className="max-w-xl mx-auto mt-12 mb-6 px-8 sm:px-20">
+          <SearchBar />
+        </div>
       </main>
       <SiteFooter />
     </div>

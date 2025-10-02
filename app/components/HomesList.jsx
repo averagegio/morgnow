@@ -71,6 +71,11 @@ export default function HomesList() {
     return (
 		<section className="w-full mt-10">
 			<h2 className="text-xl font-semibold mb-3">Browse homes</h2>
+			<div className="mb-4">
+				{/* Continuous slider hero for browse section */}
+				{/** @ts-ignore */}
+				{require("next/dynamic").default(() => import("./BrowseSlider"), { ssr: false })()}
+			</div>
             <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
 				<input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by name" className="w-full sm:w-64 rounded-md border border-black/[.08] dark:border-white/[.145] bg-transparent px-3 py-2" />
 				<select value={city} onChange={(e) => setCity(e.target.value)} className="w-full sm:w-48 rounded-md border border-black/[.08] dark:border-white/[.145] bg-transparent px-3 py-2">
@@ -88,26 +93,20 @@ export default function HomesList() {
 			{loading && <div className="mt-4 text-sm">Loading...</div>}
 
             <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-				{(data.results || []).map((h) => (
-                    <div key={h.id} className="group relative overflow-hidden rounded-xl border border-black/[.08] dark:border-white/[.145]">
-                        <div className="relative h-48 w-full bg-black/10">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={h.image} alt={h.title} className="h-full w-full object-cover" />
+                {(data.results || []).map((h) => (
+                    <div key={h.id} className="rounded-xl border border-black/[.08] dark:border-white/[.145] p-4 bg-background/60">
+                        <div className="flex items-baseline justify-between">
+                            <h3 className="font-semibold text-sm sm:text-base">{h.title}</h3>
+                            <div className="text-xs sm:text-sm">${'{'}h.price.toLocaleString(){'}'}</div>
                         </div>
-                        <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/70 to-transparent text-white">
-                            <div className="flex items-baseline justify-between">
-                                <h3 className="font-semibold text-sm sm:text-base">{h.title}</h3>
-                                <div className="text-xs sm:text-sm">${'{'}h.price.toLocaleString(){'}'}</div>
-                            </div>
-                            <div className="text-[11px] sm:text-xs opacity-85">{h.city} • {h.beds} bd • {h.baths} ba</div>
-                            <div className="mt-2 flex items-center gap-2">
-                                <button onClick={async () => fetch('/api/bid', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ homeId: h.id, amount: h.price }) })} className="rounded-full bg-white/90 text-black px-3 py-1 text-[11px] sm:text-xs hover:bg-white">Bid</button>
-                                <button onClick={async () => fetch('/api/tours', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ homeId: h.id, date: new Date().toISOString(), name: 'Guest', email: 'guest@example.com' }) })} className="rounded-full bg-foreground text-background px-3 py-1 text-[11px] sm:text-xs">Tour</button>
-                            </div>
+                        <div className="mt-1 text-[11px] sm:text-xs text-neutral-500">{h.city} • {h.beds} bd • {h.baths} ba</div>
+                        <div className="mt-3 flex items-center gap-2">
+                            <button onClick={async () => fetch('/api/bid', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ homeId: h.id, amount: h.price }) })} className="rounded-full border border-black/[.08] dark:border-white/[.145] px-3 py-1 text-[11px] sm:text-xs">Bid</button>
+                            <button onClick={async () => fetch('/api/tours', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ homeId: h.id, date: new Date().toISOString(), name: 'Guest', email: 'guest@example.com' }) })} className="rounded-full bg-foreground text-background px-3 py-1 text-[11px] sm:text-xs">Tour</button>
                         </div>
                     </div>
-				))}
-			</div>
+                ))}
+            </div>
 
             <div className="mt-4 flex items-center justify-between">
                 <div className="text-sm text-neutral-400">Page {page} of {totalPages}</div>
